@@ -42,30 +42,6 @@ namespace MVVMDemo
 			}		
 		}
 
-		protected void frmUser_OnItemUpdating(object sender, EventArgs e)
-		{
-			Button btnSave = (Button)frmUser.FindControl("btnSave");		
-			TextBox txtFirstName = (TextBox)frmUser.FindControl("txtFirstName");
-			TextBox txtLastName = (TextBox)frmUser.FindControl("txtLastName");
-			TextBox txtAddress = (TextBox)frmUser.FindControl("txtAddress");
-			TextBox txtAddress2 = (TextBox)frmUser.FindControl("txtAddress2");
-			TextBox txtCity = (TextBox)frmUser.FindControl("txtCity");
-			TextBox txtState = (TextBox)frmUser.FindControl("txtState");
-			TextBox txtZip = (TextBox)frmUser.FindControl("txtZip");
-
-			User user = new User();
-			user.ID = Convert.ToInt32(btnSave.CommandArgument);
-			user.FirstName = txtFirstName.Text.Trim();
-			user.LastName = txtLastName.Text.Trim();
-			user.Address = txtAddress.Text.Trim();
-			user.Address2 = txtAddress2.Text.Trim();
-			user.City = txtCity.Text.Trim();
-			user.State = txtState.Text.Trim();
-			user.Zip = txtZip.Text.Trim();
-
-			Model.User = user;
-		}
-
 		private void modelUpdated(object sender, PropertyChangedEventArgs e)
 		{
 			frmUser.DataBind();

@@ -9,7 +9,7 @@ using MVVMDemo.ViewModels;
 
 namespace MVVMDemo.ViewModels.Account
 {
-	public class UserViewModel : ViewModelBase<UserViewModel>, ISaveableViewModel
+	public class UserViewModel : ViewModelBase<UserViewModel>
 	{
 		private User _user;
 		public User User
@@ -27,35 +27,40 @@ namespace MVVMDemo.ViewModels.Account
 
 		public UserViewModel() { }
 
-		public bool Save()
+		public bool SaveUser(User updatedUser)
 		{
 			bool saved = false;
 
+			User = new User();
+
+			User.ID = updatedUser.ID;
+			User.FirstName = updatedUser.FirstName.Trim();
+			User.LastName = updatedUser.LastName.Trim();
+			User.Address = updatedUser.Address.Trim();
+			User.Address2 = updatedUser.Address2.Trim();
+			User.City = updatedUser.Address2.Trim();
+			User.State = updatedUser.State.Trim();
+			User.Zip = updatedUser.Zip.Trim();
+
 			try
 			{
-				using(var db = new UsersEntities())
+				using (var db = new UsersEntities())
 				{
-					if(User.ID > 0)
+					User existingUser = db.Users.FirstOrDefault(u => u.ID == User.ID);
+
+					if (existingUser != null)
 					{
-						db.Users.AddObject(User);
+						existingUser = User;
 					}
 					else
 					{
-						User user = db.Users.FirstOrDefault(u => u.ID == User.ID);
-
-						if(user != null)
-						{
-							user = User;
-						}
+						db.Users.AddObject(User);
 					}
 
-					if(db.SaveChanges() > 0)
-					{
-						 saved = true;
-					}
+					db.SaveChanges();
 				}
 			}
-			catch(Exception ex)
+			catch (Exception ex)
 			{
 				Debug.WriteLine("AN exception occurred while saving User changes: " + ex.Message);
 			}

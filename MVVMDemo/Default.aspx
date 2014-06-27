@@ -5,9 +5,9 @@
 </asp:Content>
 <asp:Content ID="BodyContent" runat="server" ContentPlaceHolderID="MainContent">
 	<asp:ObjectDataSource runat="server" ID="dataUser" 
-		TypeName="MVVMDemo.ViewModels.Account.UserViewModel" DataObjectTypeName="MVVMDemo.ViewModels.Account.UserViewModel" 
-		OnObjectCreating="dataUser_OnObjectCreating" SelectMethod="get_User" UpdateMethod="set_User" />
-	<asp:FormView runat="server" ID="frmUser" DataSourceID="dataUser" OnModeChanging="frmUser_OnModeChanging">
+		TypeName="MVVMDemo.ViewModels.Account.UserViewModel" DataObjectTypeName="MVVMDemo.Entities.User" 
+		OnObjectCreating="dataUser_OnObjectCreating" SelectMethod="get_User" UpdateMethod="SaveUser" />
+	<asp:FormView runat="server" ID="frmUser" DataSourceID="dataUser" OnModeChanging="frmUser_OnModeChanging" DataKeyNames="ID">
 		<HeaderTemplate>
 			<h2>
 				Tell us about yourself
@@ -95,7 +95,7 @@
 				</tbody>
 			</table>
 			<p>
-				<asp:Button runat="server" ID="btnSave" Text="Save" CommandName="Update" CommandArgument='<%# Eval("ID") %>' />
+				<asp:Button runat="server" ID="btnSave" Text="Save" CommandName="Update" />
 			</p>
 		</EditItemTemplate>
 		<FooterTemplate>
