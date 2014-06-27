@@ -50,14 +50,23 @@ namespace MVVMDemo.ViewModels.Account
 
 					if (existingUser != null)
 					{
-						existingUser = User;
+						existingUser.FirstName = User.FirstName;
+						existingUser.LastName = User.LastName;
+						existingUser.Address = User.Address;
+						existingUser.Address2 = User.Address2;
+						existingUser.City = User.City;
+						existingUser.State = User.State;
+						existingUser.Zip = User.Zip;
 					}
 					else
 					{
 						db.Users.AddObject(User);
 					}
 
-					db.SaveChanges();
+					if (db.SaveChanges() > 0)
+					{
+						saved = true;
+					}
 				}
 			}
 			catch (Exception ex)
