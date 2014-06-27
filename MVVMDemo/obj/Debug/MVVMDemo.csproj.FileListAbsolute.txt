@@ -1,0 +1,5 @@
+C:\Users\Zack\Documents\Visual Studio 2010\Projects\MVVMDemo\MVVMDemo\bin\MVVMDemo.dll
+C:\Users\Zack\Documents\Visual Studio 2010\Projects\MVVMDemo\MVVMDemo\bin\MVVMDemo.pdb
+C:\Users\Zack\Documents\Visual Studio 2010\Projects\MVVMDemo\MVVMDemo\obj\Debug\MVVMDemo.dll
+C:\Users\Zack\Documents\Visual Studio 2010\Projects\MVVMDemo\MVVMDemo\obj\Debug\MVVMDemo.pdb
+C:\Users\Zack\Documents\Visual Studio 2010\Projects\MVVMDemo\MVVMDemo\obj\Debug\MVVMDemo.csprojResolveAssemblyReference.cache
