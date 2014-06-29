@@ -16,7 +16,7 @@ namespace MVVMDemo.Entities
 			{
 				using (var db = new UsersEntities())
 				{
-					user = db.Users.FirstOrDefault();
+					user = db.Users.Include("UserSkills").FirstOrDefault();
 				}
 			}
 			catch (Exception ex)

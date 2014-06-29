@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Objects.DataClasses;
 using System.Diagnostics;
 using System.Linq;
 using System.Web;
@@ -11,6 +12,19 @@ namespace MVVMDemo.ViewModels.Account
 {
 	public class UserViewModel : ViewModelBase<UserViewModel>
 	{
+        public EntityCollection<UserSkill> UserSkills
+	    {
+            get
+            {
+                return User == null ? new EntityCollection<UserSkill>():
+                    User.UserSkills;
+            }
+	        set
+	        {
+	            _user.UserSkills = value;
+                NotifyPropertyChanged("UserSkills");
+	        }
+        }
 		private User _user;
 		public User User
 		{
@@ -66,6 +80,7 @@ namespace MVVMDemo.ViewModels.Account
 					if (db.SaveChanges() > 0)
 					{
 						saved = true;
+                        db.LoadProperty(User, u=>u.UserSkills);
 					}
 				}
 			}
@@ -84,5 +99,52 @@ namespace MVVMDemo.ViewModels.Account
 
 			return m;
 		}
+
+	    public bool SaveUserSkill(UserSkill userSkill)
+	    {
+	        using (var db = new UsersEntities())
+	        {
+	            var existing = db.UserSkills.First(s => s.UserSkillId == userSkill.UserSkillId);
+	            existing.Description = userSkill.Description;
+
+	            db.SaveChanges();
+
+                User = db.Users.Include("UserSkills").First(u => u.ID == User.ID);
+	        }
+
+	        return true;
+	    }
+
+	    public object InsertUserSkill(UserSkill userSkill)
+	    {
+	        using (var db = new UsersEntities())
+	        {
+	            userSkill.UserId = User.ID;
+
+                db.UserSkills.AddObject(userSkill);
+
+	            db.SaveChanges();
+
+                User = db.Users.Include("UserSkills").First(u => u.ID == User.ID);
+	        }
+
+	        return true;
+	    }
+
+	    public object DeleteSkill(UserSkill userSkill)
+	    {
+	        using (var db = new UsersEntities())
+	        {
+	            var existing = db.UserSkills.First(s => s.UserSkillId == userSkill.UserSkillId);
+
+                db.UserSkills.DeleteObject(existing);
+
+	            db.SaveChanges();
+
+                User = db.Users.Include("UserSkills").First(u => u.ID == User.ID);
+	        }
+
+	        return true;
+	    }
 	}
 }

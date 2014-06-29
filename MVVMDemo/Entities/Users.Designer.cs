@@ -17,6 +17,12 @@ using System.Runtime.Serialization;
 using System.Xml.Serialization;
 
 [assembly: EdmSchemaAttribute()]
+#region EDM Relationship Metadata
+
+[assembly: EdmRelationshipAttribute("UsersModel", "FK_UserSkills_Users", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(MVVMDemo.Entities.User), "UserSkill", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(MVVMDemo.Entities.UserSkill), true)]
+
+#endregion
+
 namespace MVVMDemo.Entities
 {
     #region Contexts
@@ -80,6 +86,22 @@ namespace MVVMDemo.Entities
             }
         }
         private ObjectSet<User> _Users;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<UserSkill> UserSkills
+        {
+            get
+            {
+                if ((_UserSkills == null))
+                {
+                    _UserSkills = base.CreateObjectSet<UserSkill>("UserSkills");
+                }
+                return _UserSkills;
+            }
+        }
+        private ObjectSet<UserSkill> _UserSkills;
 
         #endregion
 
@@ -91,6 +113,14 @@ namespace MVVMDemo.Entities
         public void AddToUsers(User user)
         {
             base.AddObject("Users", user);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the UserSkills EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToUserSkills(UserSkill userSkill)
+        {
+            base.AddObject("UserSkills", userSkill);
         }
 
         #endregion
@@ -324,6 +354,183 @@ namespace MVVMDemo.Entities
         #endregion
 
     
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UsersModel", "FK_UserSkills_Users", "UserSkill")]
+        public EntityCollection<UserSkill> UserSkills
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<UserSkill>("UsersModel.FK_UserSkills_Users", "UserSkill");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<UserSkill>("UsersModel.FK_UserSkills_Users", "UserSkill", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="UsersModel", Name="UserSkill")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class UserSkill : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new UserSkill object.
+        /// </summary>
+        /// <param name="description">Initial value of the Description property.</param>
+        /// <param name="userId">Initial value of the UserId property.</param>
+        /// <param name="userSkillId">Initial value of the UserSkillId property.</param>
+        public static UserSkill CreateUserSkill(global::System.String description, global::System.Int32 userId, global::System.Int32 userSkillId)
+        {
+            UserSkill userSkill = new UserSkill();
+            userSkill.Description = description;
+            userSkill.UserId = userId;
+            userSkill.UserSkillId = userSkillId;
+            return userSkill;
+        }
+
+        #endregion
+
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Description
+        {
+            get
+            {
+                return _Description;
+            }
+            set
+            {
+                OnDescriptionChanging(value);
+                ReportPropertyChanging("Description");
+                _Description = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Description");
+                OnDescriptionChanged();
+            }
+        }
+        private global::System.String _Description;
+        partial void OnDescriptionChanging(global::System.String value);
+        partial void OnDescriptionChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 UserId
+        {
+            get
+            {
+                return _UserId;
+            }
+            set
+            {
+                OnUserIdChanging(value);
+                ReportPropertyChanging("UserId");
+                _UserId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("UserId");
+                OnUserIdChanged();
+            }
+        }
+        private global::System.Int32 _UserId;
+        partial void OnUserIdChanging(global::System.Int32 value);
+        partial void OnUserIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 UserSkillId
+        {
+            get
+            {
+                return _UserSkillId;
+            }
+            set
+            {
+                if (_UserSkillId != value)
+                {
+                    OnUserSkillIdChanging(value);
+                    ReportPropertyChanging("UserSkillId");
+                    _UserSkillId = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("UserSkillId");
+                    OnUserSkillIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _UserSkillId;
+        partial void OnUserSkillIdChanging(global::System.Int32 value);
+        partial void OnUserSkillIdChanged();
+
+        #endregion
+
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("UsersModel", "FK_UserSkills_Users", "User")]
+        public User User
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("UsersModel.FK_UserSkills_Users", "User").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("UsersModel.FK_UserSkills_Users", "User").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<User> UserReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("UsersModel.FK_UserSkills_Users", "User");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("UsersModel.FK_UserSkills_Users", "User", value);
+                }
+            }
+        }
+
+        #endregion
+
     }
 
     #endregion

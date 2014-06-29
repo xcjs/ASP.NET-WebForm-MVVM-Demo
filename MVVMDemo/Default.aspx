@@ -7,6 +7,11 @@
 	<asp:ObjectDataSource runat="server" ID="dataUser" 
 		TypeName="MVVMDemo.ViewModels.Account.UserViewModel" DataObjectTypeName="MVVMDemo.Entities.User" 
 		OnObjectCreating="dataUser_OnObjectCreating" SelectMethod="get_User" UpdateMethod="SaveUser" />
+        
+    <asp:ObjectDataSource runat="server" ID="dataUserSkills" 
+		TypeName="MVVMDemo.ViewModels.Account.UserViewModel" DataObjectTypeName="MVVMDemo.Entities.UserSkill"
+		OnObjectCreating="dataUser_OnObjectCreating" DeleteMethod="DeleteSkill" SelectMethod="get_UserSkills" UpdateMethod="SaveUserSkill" InsertMethod="InsertUserSkill" />
+
 	<asp:FormView runat="server" ID="frmUser" DataSourceID="dataUser" OnModeChanging="frmUser_OnModeChanging" DataKeyNames="ID">
 		<HeaderTemplate>
 			<h2>
@@ -29,9 +34,13 @@
 				<%# Eval("City") %>, <%# Eval("State") %>
 				<%# Eval("Zip") %>
 			</address>
+            
+            <br/>
+
 			<p>
 				<asp:Button runat="server" ID="btnEdit" Text="Edit" CommandName="Edit" />
 			</p>
+            
 		</ItemTemplate>
 		<EditItemTemplate>
 			<table>
@@ -103,4 +112,41 @@
 		</FooterTemplate>
 		
 	</asp:FormView>
+    
+    <asp:ListView ID="lvSkills" runat="server" DataSourceID="dataUserSkills" InsertItemPosition="LastItem" DataKeyNames="UserSkillId">
+        
+        
+        <LayoutTemplate>
+            <p>Skills</p>
+            <p runat="server" id="itemPlaceholder">
+                    </p>
+                    
+                    <br/>
+            
+        </LayoutTemplate>        
+        
+        <ItemTemplate>
+            <%# Eval("Description") %>
+            <asp:Button runat="server" ID="btnSaveSkill" Text="Edit" CommandName="Edit" />
+            <br/>
+        </ItemTemplate>
+        
+        <EditItemTemplate>
+            <asp:HiddenField ID="hdnUserId" runat="server" Value='<%# Bind("UserId") %>' Visible="false" />
+            <asp:HiddenField ID="hdnUserSkillId" runat="server" Value='<%# Bind("UserSkillId") %>' Visible="false" />
+            <asp:TextBox runat="server" ID="txtDescription" Text='<%# Bind("Description") %>' />
+            <asp:Button runat="server" ID="btnUpdateSkill" Text="Save" CommandName="Update" />
+            <asp:Button runat="server" ID="btnRemoveSkill" Text="Remove" CommandName="Delete" />
+            <br/>
+        </EditItemTemplate>
+
+        <InsertItemTemplate>
+            <asp:HiddenField ID="hdnUserId" runat="server" Value='<%# Bind("UserId") %>' Visible="false" />
+            <asp:HiddenField ID="hdnUserSkillId" runat="server" Value='<%# Bind("UserSkillId") %>' Visible="false" />
+            <asp:TextBox runat="server" ID="txtDescription" Text='<%# Bind("Description") %>' />
+            <asp:Button runat="server" ID="btnAddSkill" Text="Add" CommandName="Insert" />     
+        </InsertItemTemplate>
+
+     </asp:ListView>
+
 </asp:Content>
