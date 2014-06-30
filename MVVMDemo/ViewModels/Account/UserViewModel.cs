@@ -38,7 +38,7 @@ namespace MVVMDemo.ViewModels.Account
 			User.LastName = updatedUser.LastName.Trim();
 			User.Address = updatedUser.Address.Trim();
 			User.Address2 = updatedUser.Address2.Trim();
-			User.City = updatedUser.Address2.Trim();
+			User.City = updatedUser.City.Trim();
 			User.State = updatedUser.State.Trim();
 			User.Zip = updatedUser.Zip.Trim();
 
