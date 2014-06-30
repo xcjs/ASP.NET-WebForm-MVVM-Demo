@@ -71,7 +71,7 @@ namespace MVVMDemo.ViewModels.Account
 			}
 			catch (Exception ex)
 			{
-				Debug.WriteLine("AN exception occurred while saving User changes: " + ex.Message);
+				Debug.WriteLine("An exception occurred while saving User changes: " + ex.Message);
 			}
 
 			return saved;
