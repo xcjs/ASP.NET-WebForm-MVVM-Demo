@@ -15,15 +15,27 @@ namespace MVVMDemo
 	{
 		public UserViewModel Model { get; set; }
 
+	    private void SetSkillsVisibility()
+	    {
+            if (Model == null || Model.User == null)
+                lvSkills.Visible = false;
+            else if (Model.User.ID == 0)
+                lvSkills.Visible = false;
+            else
+                lvSkills.Visible = true;	        
+	    }
+
 		protected void Page_Load(object sender, EventArgs e)
 		{
 			Model = UserViewModel.CreateInstance();
 			Model.PropertyChanged += modelUpdated;
+		    SetSkillsVisibility();
 		}
 
-		protected void dataUser_OnObjectCreating(object sender, ObjectDataSourceEventArgs e)
+	    protected void dataUser_OnObjectCreating(object sender, ObjectDataSourceEventArgs e)
 		{
 			e.ObjectInstance = Model;
+            SetSkillsVisibility();
 		}
 
 		protected void frmUser_OnModeChanging(object sender, FormViewModeEventArgs e)
@@ -44,7 +56,7 @@ namespace MVVMDemo
 
 		private void modelUpdated(object sender, PropertyChangedEventArgs e)
 		{
-			frmUser.DataBind();
+		    frmUser.DataBind();
 		}
 	}
 }

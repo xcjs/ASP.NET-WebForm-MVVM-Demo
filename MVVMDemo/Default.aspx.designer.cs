@@ -22,6 +22,15 @@ namespace MVVMDemo {
         protected global::System.Web.UI.WebControls.ObjectDataSource dataUser;
         
         /// <summary>
+        /// dataUserSkills control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ObjectDataSource dataUserSkills;
+        
+        /// <summary>
         /// frmUser control.
         /// </summary>
         /// <remarks>
@@ -29,5 +38,14 @@ namespace MVVMDemo {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.FormView frmUser;
+        
+        /// <summary>
+        /// lvSkills control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ListView lvSkills;
     }
 }
