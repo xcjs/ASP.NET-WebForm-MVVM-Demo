@@ -32,3 +32,6 @@ ipch/
 Ankh.NoLoad
 
 #MonoDevelop
+
+#Nuget
+packages/
